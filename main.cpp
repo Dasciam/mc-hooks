@@ -14,7 +14,7 @@ hat::fixed_signature g_IsTrialSig = hat::compile_signature<
 
 // __int64 __fastcall MinecraftScreenModel::isTrial(MinecraftScreenModel *this)
 bool hk_MinecraftScreenModel_isTrial(void *) {
-    return true;
+    return false;
 }
 
 BOOL WINAPI DllMain(HMODULE /* module */, DWORD reason, LPVOID /* reserved */) {
