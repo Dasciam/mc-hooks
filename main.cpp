@@ -10,10 +10,10 @@
 
 safetyhook::InlineHook g_IsTrialHook{};
 hat::fixed_signature g_IsTrialSig = hat::compile_signature<
-    "E8 ? ? ? ? 88 86 ? ? ? ? 48 8B 8E ? ? ? ? 48 85 C9 0F 84 ? ? ? ? 8B 41">();
+    "56 48 83 EC ? 48 89 ? 48 8B ? ? ? ? ? 48 31 ? 48 89 ? ? ? 48 83 79 68">();
 
-// __int64 __fastcall MinecraftScreenModel::isTrial(MinecraftScreenModel *this)
-bool hk_MinecraftScreenModel_isTrial(void *) {
+// char __fastcall OfferRepository::isTrial(OfferRepository* this)
+bool hk_OfferRepository_isTrial(void*) {
     return false;
 }
 
@@ -23,9 +23,8 @@ BOOL WINAPI DllMain(HMODULE /* module */, DWORD reason, LPVOID /* reserved */) {
         if (!result.has_result()) {
             return TRUE;
         }
-        const auto addr = result.rel(1);
 
-        g_IsTrialHook = safetyhook::create_inline(addr, hk_MinecraftScreenModel_isTrial);
+        g_IsTrialHook = safetyhook::create_inline(result.get(), hk_OfferRepository_isTrial);
     } else if (reason == DLL_PROCESS_DETACH) {
         g_IsTrialHook = {};
     }
